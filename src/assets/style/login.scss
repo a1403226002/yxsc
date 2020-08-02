@@ -1,0 +1,30 @@
+#login{
+    width: 90%;
+    border: #dddddd 1px solid;
+    border-radius: 3px;
+    margin: .5rem auto;
+    padding: .2rem;
+    box-sizing: border-box;
+    .login-head{
+      line-height: .88rem;
+      font-size: .35rem;
+      font-weight: bold;
+    }
+    .inp{
+      border: #d4d4d4 1px solid;
+      border-radius: 5px;
+      margin-bottom: .3rem;
+    }
+    .btn{
+      background-image: linear-gradient(90deg,#ffb821 0,#ff5c38 45%,#ff1459);
+      border: none;
+      box-shadow: 0px 3px 2px rgba($color: #000000, $alpha: .3);
+    }
+    .van-image{
+      width: 3rem;
+    }
+    .link-login{
+      line-height: .88rem;
+      text-align: center;
+    }
+}
