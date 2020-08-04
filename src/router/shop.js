@@ -5,7 +5,9 @@ import Category from "@/views/home/category";
 import Cart from "@/views/home/cart";
 import Me from "@/views/home/me";
 
-import Search from '@/components/search/search'
+import Search from '@/components/search/search';
+import Detail from '@/views/home/detail';
+
 
 export default [
     {
@@ -51,6 +53,14 @@ export default [
         component: Search,
         meta: {
             title: "严选商城-搜索"
+        }
+    },
+    {
+        path: "/detail/:id",
+        name: "detail",
+        component: Detail,
+        meta: {
+            title: "严选商城-商品详情"
         }
     },
 ];

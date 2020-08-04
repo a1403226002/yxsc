@@ -3,7 +3,7 @@
     <div class="dy-list">
       <p>人气推荐 ></p>
       <ul>
-        <router-link tag="li" :to="'/goodsInfo/'+item.id" v-for="(item,index) in dy_List" :key="index">
+        <router-link tag="li" :to="'/detail/'+item.id" v-for="(item,index) in dy_List" :key="index" @click="$router.push('/src/views/home/detail.vue'+item)">
           <img :src="item.pic" alt />
           <div>
             <p>{{item.name}}</p>
