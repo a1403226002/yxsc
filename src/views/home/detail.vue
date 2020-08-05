@@ -29,14 +29,17 @@
         </van-tab>
       </van-tabs>
     </div>
-    <!--  -->
+    <!-- 底部商品提交 -->
     <van-goods-action>
-      <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
-      <van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" />
-      <van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" />
-      <van-goods-action-button type="danger" text="立即购买" @click="onClickButton" />
-      <van-goods-action-button type="danger" text="加入购物车" @click="onClickButton" />
+      <van-goods-action-icon icon="chat-o" text="客服" />
+      <van-goods-action-icon icon="cart-o" text="购物车" />
+      <van-goods-action-icon icon="shop-o" text="店铺" />
+      <van-goods-action-button type="danger" text="加入购物车" @click="skuShow = !skuShow" />
+      <van-goods-action-button type="warning" text="立即购买" />
+
     </van-goods-action>
+    <!--  -->
+    <van-sku v-model="skuShow" :sku="sku" :goods="goods" @add-cart="addCart" />
   </div>
 </template>
 
@@ -53,7 +56,98 @@ export default {
       gid: 0,
       banners: [],
       goodsInfo: [],
-      conent: ""
+      conent: "",
+      //sku的基本信息
+      skuShow: false, //默认隐藏
+      //sku的配置信息
+      sku: {
+        tree: [
+          {
+            k: "颜色",
+            k_s: "c1",
+            v: [
+              { id: 1, name: "红色" },
+              { id: 2, name: "蓝色" },
+              { id: 3, name: "黄色" },
+              { id: 4, name: "绿色" },
+              { id: 5, name: "白色" }
+            ]
+          },
+          {
+            k: "尺码",
+            k_s: "s1",
+            v: [
+              { id: 7, name: "S" },
+              { id: 8, name: "M" },
+              { id: 9, name: "L" },
+              { id: 10, name: "XL" }
+            ]
+          }
+        ],
+        list: [
+            {
+              id:1000,
+              c1:1,
+              s1:7,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:1,
+              s1:8,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:1,
+              s1:9,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:1,
+              s1:10,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:2,
+              s1:7,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:2,
+              s1:8,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:2,
+              s1:9,
+              price:100,
+              stock_num:100,
+            },
+            {
+              id:1000,
+              c1:2,
+              s1:10,
+              price:100,
+              stock_num:100,
+            },
+        ],
+        price: "1.00", //默认价格
+        stock_num: 227 //商品库存
+      },
+      goods: {
+        picture: ""
+      }
     };
   },
   computed: {},
@@ -70,7 +164,23 @@ export default {
         this.banners = res.data.pics; //获取商品的轮播图
         this.goodsInfo = res.data.basicInfo; //商品详情
         this.content = res.data.content; //商品详情
+        this.goods.picture = res.data.pics[0].pic;
+        this.sku.price = res.data.basicInfo.originalPrice;
+        this.sku.stock_num = res.data.basicInfo.stores;
       });
+    },
+    //加入购物车
+    addCart(){
+    //判断用户是否登录
+          let data = localStorage.getItem("09c_user");
+          if(data == null){
+            this.$toast.fail("请登录");
+            this.$router.push("/login");
+            return false;
+          }
+
+          this.$toast.success("加入购物车成功");
+          this.skuShow = false;
     }
   }
 };

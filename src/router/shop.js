@@ -8,6 +8,8 @@ import Me from "@/views/home/me";
 import Search from '@/components/search/search';
 import Detail from '@/views/home/detail';
 
+import Login from '@/views/login/login'
+
 
 export default [
     {
@@ -61,6 +63,14 @@ export default [
         component: Detail,
         meta: {
             title: "严选商城-商品详情"
+        }
+    },
+    {
+        path: "/login/",
+        name: "login",
+        component: Login,
+        meta: {
+            title: "用户登录"
         }
     },
 ];
