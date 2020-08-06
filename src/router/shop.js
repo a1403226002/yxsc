@@ -8,7 +8,9 @@ import Me from "@/views/home/me";
 import Search from '@/components/search/search';
 import Detail from '@/views/home/detail';
 
-import Login from '@/views/login/login'
+import Login from '@/views/login/login';
+import article from '@/views/article/article';
+import articleDetail from '@/views/article/detail';
 
 
 export default [
@@ -71,6 +73,22 @@ export default [
         component: Login,
         meta: {
             title: "用户登录"
+        }
+    },
+    {
+        path: "/article/",
+        name: "aticle",
+        component:article,
+        meta: {
+            title: "严选商城-严选专栏"
+        }
+    },
+    {
+        path: "/article/detail",
+        name: "aticle/detail",
+        component:articleDetail,
+        meta: {
+            title: "严选商城-文章详情"
         }
     },
 ];

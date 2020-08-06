@@ -1,77 +1,24 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPersistence from "vuex-persist";//导入持久化的工具
 
-import VuexPersist from "vuex-persist";//导入持久化的工具
-
-Vue.use(Vuex);
-
-const vuexLocal = new VuexPersist({
+//指定本地存储配置
+const vuexLocal = new VuexPersistence({
     storage: window.localStorage
-});
-
-//定义一个对象
-const store = new Vuex.Store({
-    //数据池
-    state:{
-        count:100,
-        isLoading:false, //控制正在加载
-        cartList:[],//购物车列表
-        nums: 0,//总数量
-        orderList:[],//存储订单商品列表
-        orderInfo:[],
+})
+Vue.use(Vuex);
+export default new Vuex.Store({
+    state: {
+        cartList:[]//储存购物车的基本信息
     },
-    //操作state的内容
-    mutations:{
-        changeLoading(state,bool){
-            state.isLoading=bool
-        },
+    mutations: {
         addCart(state,payload){
+            //追加信息
             state.cartList = payload;
-        },
-        countCarts(state){
-            console.log("test");
-            let tmp = 0;
-            //遍历购物车的数量
-            console.log(state.cartList);
-            state.cartList.forEach(item=>{
-                tmp += item.nums;
-            })
-            //计算总数量
-            state.nums = tmp;
-        },
-        setOrderList(state){
-            state.orderList = state.cartList.filter(item=>{
-                return item.checked == true;
-            });
-        },
-        setOrder(state,payload){
-            state.orderInfo = payload;
-        },
-
-        clear(state){
-            state.cartList = [];
-            state.nums = 0;
-            state.orderInfo = [];
         }
     },
-    getters:{
-        totalAmounts(state){
-            let amount = 0;
-            state.orderList.forEach(item=>{
-                amount += item.price*item.nums;
-            });
-
-            return amount;
-        }
-    },
-    actions:{
-
-    },
-    modules:{
+    actions: {
 
     },
     plugins: [vuexLocal.plugin]
 });
-
-//导出对象
-export default store;

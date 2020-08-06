@@ -1,7 +1,7 @@
 <template>
   <div class="dy-box">
     <div class="dy-list">
-      <p>精选专题 ></p>
+      <p @click="tog()">精选专题></p>
       <van-swipe :show-indicators="dy_flag" :loop="false" :width="320">
         <router-link tag="van-swipe-item" :to="'/detail/'+item.id" v-for="(item,index) in dy_List" :key="index">
           <img :src="item.pic" alt />
@@ -25,12 +25,18 @@ export default {
   props: [],
   components: {},
   mounted() {
+    
     this.$axios.get("https://api.it120.cc/small4/cms/news/list").then(res => {
       console.log(res.data);
       this.dy_List = res.data;
     });
   },
   methods: {
+    tog(){
+      this.$router.push({
+        path:"/article"
+      });
+    },
   }
 };
 </script>
